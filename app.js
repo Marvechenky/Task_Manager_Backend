@@ -3,24 +3,35 @@ const app = express();
 const mongoose = require("mongoose");
 const path = require("path");
 const cors = require("cors");
-const db_connection = require("./db_connection/db_connection");
+const db_connection = require("./db_connection/connection");
 require("dotenv").config();
-const authRoutes = require("./routes/authRoutes");
-const taskRoutes = require("./routes/taskRoutes");
-const profileRoutes = require("./routes/profileRoutes");
+const authRoute = require("./routes/authRoute");
+const taskRoute = require("./routes/taskRoute");
+const profileRoute = require("./routes/profileRoute");
 
 app.use(express.json());
 app.use(cors());
 
-const mongoUrl = process.env.MONGODB_URL;
-mongoose.connect(mongoUrl, err => {
-  if (err) throw err;
-  console.log("Database connection successful...");
-});
 
-app.use("/api/auth", authRoutes);
-app.use("/api/tasks", taskRoutes);
-app.use("/api/profile", profileRoutes);
+
+const mongoUrl = mongoose.connect(process.env.MONGODB_URL, 
+    { useNewUrlParser: true, useUnifiedTopology: true });
+  
+  const db = mongoose.connection;
+  
+  db.on('error', (err) => {
+    console.error('Database connection failed...', err);
+  });
+  
+  db.once('open', () => {
+    console.log('Database connection successful...');
+  });
+
+
+
+app.use("/api/auth", authRoute);
+app.use("/api/task", taskRoute);
+app.use("/api/profile", profileRoute);
 
 // if (process.env.NODE_ENV === "production") {
 //   app.use(express.static(path.resolve(__dirname, "../frontend/build")));
