@@ -6,7 +6,7 @@ const { verifyAccessToken } = require("../middleware");
 // Routes beginning with /api/tasks
 router.get("/", verifyAccessToken, getTasks);
 router.get("/:taskId", verifyAccessToken, getTask);
-router.post("/", verifyAccessToken, postTask);
+router.post("/addTask", verifyAccessToken, postTask);
 router.put("/:taskId", verifyAccessToken, putTask);
 router.delete("/:taskId", verifyAccessToken, deleteTask);
 
