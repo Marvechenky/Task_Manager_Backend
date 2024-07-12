@@ -9,7 +9,12 @@ const taskRoute = require("./routes/taskRoute");
 const profileRoute = require("./routes/profileRoute");
 
 app.use(express.json());
-app.use(cors());
+
+app.use(cors({
+  origin: 'https://task-manager-frontend-i9in.onrender.com',
+  optionsSuccessStatus: 200
+}));
+
 
 
 
