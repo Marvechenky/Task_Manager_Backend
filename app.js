@@ -37,6 +37,10 @@ app.use("/api/auth", authRoute);
 app.use("/api/task", taskRoute);
 app.use("/api/profile", profileRoute);
 
+app.get('/', () => {
+  console.log("Task Manager Backend Service is working!")
+})
+
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.resolve(__dirname, "../Frontend/build")));
   app.get("*", (req, res) => res.sendFile(path.resolve(__dirname, "../Frontend/build/index.html")));
