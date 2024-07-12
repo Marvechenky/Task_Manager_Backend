@@ -34,7 +34,7 @@ app.use("/api/profile", profileRoute);
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.resolve(__dirname, "../Frontend/build")));
-  app.get("/", (req, res) => res.sendFile(path.resolve(__dirname, "../build/index.html")));
+  app.get("/", (req, res) => res.sendFile(path.resolve(__dirname, "../Frontend/build/index.html")));
 }
 
 const port = process.env.PORT || 5000;
